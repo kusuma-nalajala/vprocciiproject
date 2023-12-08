@@ -15,7 +15,8 @@ pipeline{
          NEXUSPORT = '8081'
          NEXUS_GRP_REPO = 'vpro-maven-group'
          NEXUS_LOGIN = 'nexuslogin' 
-         
+         SONARSERVER = 'sonarserver'
+         SONARSCANNER = 'sonarscanner'
     }
 
     stages {
@@ -23,11 +24,7 @@ pipeline{
             steps {
                sh 'mvn clean install -U -DskipTests -Dmaven.repo.local=~/.m2/repository'
             }
-
-
-        }                  
-
-post {
+        post {
                 success {
                     echo 'Now Archiving...'
                     archiveArtifacts artifacts: '**/target/*.war'
@@ -73,7 +70,5 @@ post {
             }
         }
     }           
-}
-}
 }
 }
